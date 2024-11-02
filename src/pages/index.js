@@ -60,9 +60,11 @@ export default function Home() {
       setMe(meRef.current);
     });
 
-    const room = drone.subscribe('observable-room');
+    const room = drone.subscribe('awesome-historical-room', {
+      historyCount: 5 // ask for the 5 most recent messages from the room's history
+    });
 
-    room.on('message', message => {
+    room.on('history_message', message => {
       const {data, member} = message;
       setMessages([...messagesRef.current, message]);
     });
